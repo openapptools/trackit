@@ -1,0 +1,74 @@
+plugins {
+    id 'io.spring.dependency-management' version '1.1.0' apply false
+}
+
+ext {
+    moduleProjects = subprojects.findAll { it.name.startsWith('trackit-') && !(it.name.endsWith('-shell') || it.name.endsWith('-installer') || it.name.endsWith('-application'))}
+    parentProjects = subprojects.findAll { !it.name.startsWith('trackit-')}
+    applicationProjects = subprojects.findAll { it.name.endsWith('-application') || it.name.endsWith('-installer') || it.name.endsWith('-shell')}
+}
+
+
+configure(allprojects) { project ->
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url 'https://repo.spring.io/milestone' }
+    	maven { url 'https://repo.spring.io/snapshot' }
+    	jcenter()
+    }
+    configurations.all {
+        resolutionStrategy {
+            cacheChangingModulesFor 0, "seconds"
+            cacheDynamicVersionsFor 0, "seconds"
+        }
+    }
+}
+
+configure([rootProject] + moduleProjects) { project ->
+    group = 'org.opentracktools'
+    version = '0.0.1.INCUBATOR'
+
+}
+
+configure(moduleProjects + applicationProjects) { project ->
+
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    //apply plugin: 'checkstyle'
+    apply plugin: 'io.spring.dependency-management'
+
+
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:3.0.6")
+        }
+    }
+
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+    	annotationProcessor 'org.projectlombok:lombok'
+    }
+
+    compileJava {
+        sourceCompatibility = 20
+        targetCompatibility = 20
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+    }
+
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+}
+
+configure(applicationProjects) { project ->
+    apply plugin: 'application'
+    apply plugin: 'io.spring.dependency-management'
+}
+
+tasks.register("cleanStaleBuild", org.trackit.build.tasks.StaleBuildClean)

@@ -1,0 +1,8 @@
+description = 'Web module for workspace management'
+
+dependencies {
+	api(project(":web:trackit-web-core"))
+	//api(project(":services:trackit-service-workspace"))
+	implementation 'org.springframework:spring-webmvc'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+}

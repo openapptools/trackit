@@ -1,0 +1,5 @@
+description = 'Core service module.'
+
+dependencies {
+	api(project(":persistance:trackit-persistance"))
+}

@@ -1,0 +1,5 @@
+description = "Trackit core modules"
+
+dependencies {
+	api(project(":commons:trackit-commons"))
+}

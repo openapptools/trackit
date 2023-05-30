@@ -1,0 +1,13 @@
+plugins {
+	id 'java-gradle-plugin'
+	id 'java'
+}
+
+repositories {
+	mavenCentral()
+	jcenter()
+}
+
+dependencies {
+	implementation 'commons-io:commons-io:2.12.0'
+}

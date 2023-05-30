@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<head>
+	
+</head>
+<body>
+<div layout:fragment="main-content">
+<div th:class="@{container mt-3}">
+<h3>User Creation</h3>
+	<form action="#" th:action="@{/users/new}" th:object="${user}" method="post">
+	<div th:class="@{d-block text-danger}" th:style="@{font-size: 14px}" th:text="${appError}"></div>
+	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{username}">Username</label>
+		<input th:class="@{form-control form-control-sm}" th:id="@{username}" th:type="@{text}" type="text" th:field="*{username}" />
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+	</div>
+	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{email}">Email</label>
+		<input th:class="@{form-control form-control-sm}" th:id="@{email}" th:type="@{text}" type="text" th:field="*{email}" />
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+	</div>
+	<div th:class="@{d-block mb-3 float-end}">
+		<button th:class="@{btn btn-sm}" type="reset">Reset</button>
+		<button th:class="@{btn btn-sm btn-success}" type="submit">Save</button>
+	</div>
+	</form>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+pluginManagement {
+  repositories {
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    gradlePluginPortal()
+  }
+}
+
+rootProject.name = 'trackit'
+
+include "commons:trackit-commons"
+include "core:trackit-core"
+include "persistance:trackit-persistance"
+include "infra:trackit-repo-user"
+include "infra:trackit-repo-workspace"
+include ":services:trackit-service-core"
+include ":services:trackit-service-user"
+include ":services:trackit-service-workspace"
+include ":web:trackit-web-core"
+include ":web:trackit-web-user"
+include ":web:trackit-web-workspace"
+
+include ":app:trackit-application"

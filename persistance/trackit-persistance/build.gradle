@@ -1,0 +1,7 @@
+description = 'Trackit persistance module'
+
+dependencies {
+	api(project(":core:trackit-core"))
+	api ('org.springframework.boot:spring-boot-starter-data-jpa')
+	runtimeOnly 'org.hsqldb:hsqldb'
+}

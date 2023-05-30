@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Workspaces</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+<div th:class="@{container mt-3}">
+<h3>Workspace Listing Page</h3>
+<div th:if="${not #lists.isEmpty(workspaces)}">
+	<ul>
+		<li th:each="workspace: ${workspaces}">
+			<span th:text="${workspace.name}"></span>
+		</li>
+	</ul>
+</div>
+</div>
+</div>
+</body>
+</html>

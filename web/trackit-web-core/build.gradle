@@ -1,0 +1,6 @@
+description = 'Core web module'
+
+dependencies {
+	api(project(":core:trackit-core"))
+	api 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+}

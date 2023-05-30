@@ -1,0 +1,6 @@
+description = 'Trackit user service module'
+
+dependencies {
+	api(project(":infra:trackit-repo-user"))
+	api(project(":services:trackit-service-core"))
+}

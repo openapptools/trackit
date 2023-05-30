@@ -1,0 +1,11 @@
+description = 'Common modules for the trackit tool'
+
+dependencies {
+    api 'org.springframework:spring-context'
+    api 'org.hibernate.validator:hibernate-validator'
+    api 'jakarta.servlet:jakarta.servlet-api'
+    api 'org.projectlombok:lombok'
+    api 'ch.qos.logback:logback-classic'
+    api 'org.slf4j:slf4j-api'
+    api 'org.apache.commons:commons-lang3'
+}
