@@ -1,6 +1,6 @@
 description = 'Trackit workspace service module'
 
 dependencies {
-	//api(project(":infra:trackit-repo-workspace"))
+	api(project(":infra:trackit-repo-workspace"))
 	api(project(":services:trackit-service-core"))
 }
