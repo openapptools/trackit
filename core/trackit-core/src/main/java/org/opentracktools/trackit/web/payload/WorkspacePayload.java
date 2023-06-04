@@ -23,10 +23,20 @@ package org.opentracktools.trackit.web.payload;
 
 import org.opentracktools.trackit.web.Workspace;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 /**
  * @author Arpan Mukhopadhyay
  *
  */
+@Getter
+@Setter
+@NoArgsConstructor
 public class WorkspacePayload extends Workspace {
-
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 }

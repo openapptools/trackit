@@ -45,7 +45,15 @@ public interface UserManagementRepository extends JpaRepository<UserEntity, Long
 	 */
 	@Query("from UserEntity u where u.username = :username or u.email = :email")
 	UserEntity findByUsernameOrEmail(@Param("username") String username, @Param("email") String email);
-	
+
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	@Query("from UserEntity u where u.deleted = false and u.username = :username")
+	UserEntity findByUsername(@Param("username") String username);
+
 	/**
 	 * 
 	 * @return

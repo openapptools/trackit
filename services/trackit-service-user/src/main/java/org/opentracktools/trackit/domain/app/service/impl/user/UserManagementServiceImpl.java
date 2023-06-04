@@ -56,9 +56,9 @@ public class UserManagementServiceImpl implements UserManagementService {
 	public UserServiceResponse list() {
 		UserServiceResponse response = null;
 		List<UserEntity> activeUsers = userRepository.findAllActiveUsers();
-		log.info("{}\n", activeUsers);
+		logger.info("{}\n", activeUsers);
 		if (activeUsers != null && activeUsers.size() > 0) {
-			response = UserServiceResponse.success(userConversionService.fromUserEntities(activeUsers));
+			response = UserServiceResponse.success(userConversionService.fromEntities(activeUsers));
 			response.setCode(200);
 		} else {
 			response = UserServiceResponse.error(null);

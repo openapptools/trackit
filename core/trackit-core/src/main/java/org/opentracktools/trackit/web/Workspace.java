@@ -21,6 +21,8 @@
  */
 package org.opentracktools.trackit.web;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -44,4 +46,8 @@ public class Workspace {
 
 	@Size(max = 512, message = "Workspace must be within 512 characters.")
 	private String description;
+	
+	@NotNull(message = "Workspace must have an owner.")
+	@NotEmpty(message = "Workspace must have an owner.")
+	private String owner;
 }

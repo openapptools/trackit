@@ -19,24 +19,25 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.infra.repo.workspace;
+package org.opentracktools.trackit.domain.app.service.workspace;
 
-import java.util.List;
-
-import org.opentracktools.trackit.domain.model.WorkspaceEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import org.opentracktools.trackit.web.payload.WorkspacePayload;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-public interface WorkspaceManagementRepository extends JpaRepository<WorkspaceEntity, Long> {
+public interface WorkspaceService {
 
 	/**
 	 * 
 	 * @return
 	 */
-	@Query("from WorkspaceEntity w where w.deleted = false")
-	List<WorkspaceEntity> findAllActiveWorkspaces();
+	WorkspaceServiceResponse list();
+
+	/**
+	 * @param payload
+	 * @return
+	 */
+	WorkspaceServiceResponse create(WorkspacePayload payload);
 }

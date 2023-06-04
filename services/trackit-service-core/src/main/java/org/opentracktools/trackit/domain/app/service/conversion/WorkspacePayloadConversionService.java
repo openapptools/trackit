@@ -19,24 +19,21 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.infra.repo.impl.user;
+package org.opentracktools.trackit.domain.app.service.conversion;
 
-import org.opentracktools.trackit.infra.repo.user.UserCRUDRepository;
-import org.springframework.stereotype.Repository;
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
+import org.opentracktools.trackit.domain.model.WorkspaceEntity;
+import org.opentracktools.trackit.web.payload.WorkspacePayload;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-@Repository
-public class UserCRUDRepositoryImpl implements UserCRUDRepository {
+public interface WorkspacePayloadConversionService {
 
-	// For custom persistence method we will use criteria instead of jpql
-
-	@PersistenceContext
-	private EntityManager entityManager;
+	/**
+	 * @param workspacePayload
+	 * @return
+	 */
+	WorkspaceEntity fromPayload(WorkspacePayload workspacePayload);
 
 }

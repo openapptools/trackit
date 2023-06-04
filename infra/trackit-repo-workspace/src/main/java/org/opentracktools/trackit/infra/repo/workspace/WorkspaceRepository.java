@@ -3,7 +3,7 @@
  * helps you track your daily work progress with a flavor of agile.
  *
  * Copyright (C) 2023-present  Arpan Mukhopadhyay. All rights reserved.
- *
+ * 
  * DO NOT DELETE OR MODIFY THIS LICENSE INFORMATION OR THIS FILE HEADER.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,31 +19,33 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.domain.app.service.conversion;
+package org.opentracktools.trackit.infra.repo.workspace;
 
 import java.util.List;
 
-import org.opentracktools.trackit.domain.model.UserEntity;
-import org.opentracktools.trackit.web.User;
-import org.opentracktools.trackit.web.payload.UserPayload;
+import org.opentracktools.trackit.domain.model.WorkspaceEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-public interface UserPayloadConversionService {
-
-	/**
-	 *
-	 * @param userPayload
-	 * @return
-	 */
-	UserEntity fromPayload(UserPayload userPayload);
+public interface WorkspaceRepository extends JpaRepository<WorkspaceEntity, Long>, WorkspaceCustomRepository {
 
 	/**
 	 * 
-	 * @param userEntities
 	 * @return
 	 */
-	List<User> fromEntities(List<UserEntity> userEntities);
+	@Query("from WorkspaceEntity w where w.deleted = false")
+	List<WorkspaceEntity> findAllActiveWorkspaces();
+
+	/**
+	 * 
+	 * @param name
+	 * @return
+	 */
+	@Query("from WorkspaceEntity w where w.deleted = fasle and w.name = :name ")
+	WorkspaceEntity findOneByName(@Param("name") String name);
 }

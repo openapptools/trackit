@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/default_layout}">
+<head>
+<meta charset="UTF-8">
+<title>Create Workspace</title>
+</head>
+<body>
+<div layout:fragment="main-content">
+<div th:class="@{container mt-3}">
+<h3>New Workspace</h3>
+	<form action="#" th:action="@{/workspaces/new}" th:object="${workspace}" method="post">
+	<div th:class="@{d-block text-danger}" th:style="@{font-size: 14px}" th:text="${appError}"></div>
+	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{name}">Name</label>
+		<input th:class="@{form-control form-control-sm}" th:id="@{name}" th:type="@{text}" type="text" th:field="*{name}" />
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+	</div>
+	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{description}">Description</label>
+		<input th:class="@{form-control form-control-sm}" th:id="@{description}" th:type="@{text}" type="text" th:field="*{description}" />
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+	</div>
+	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{owner}">Owner</label>
+		<select th:id="@{owner}" class="form-select form-select-sm" th:field="*{owner}">
+  			<option selected th:value="@{''}">-Select owner-</option>
+  			<option th:each="owner: ${users}" th:text="${owner.username}" th:value="${owner.username}"></option>
+		</select>
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></div>
+	</div>
+	<div th:class="@{d-block mb-3 float-end}">
+		<button th:class="@{btn btn-sm}" type="reset">Clear</button>
+		<button th:class="@{btn btn-sm btn-success}" type="submit">Save</button>
+	</div>
+	</form>
+</div>
+</div>
+</body>
+</html>

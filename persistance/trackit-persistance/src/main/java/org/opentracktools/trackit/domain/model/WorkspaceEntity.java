@@ -21,6 +21,7 @@
  */
 package org.opentracktools.trackit.domain.model;
 
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -91,8 +92,15 @@ public class WorkspaceEntity extends BaseEntity {
 		this.ownerId = ownerId;
 		this.type = type;
 		this.properties = properties;
+		this.setCreatedAt(new Date());
 	}
 
+	/**
+	 * 
+	 */
+	WorkspaceEntity() {
+	}
+	
 	/**
 	 * 
 	 * @return

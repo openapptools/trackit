@@ -19,21 +19,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.web.routes.workspaces;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+package org.opentracktools.trackit.infra.repo.workspace;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-@Controller
-@RequestMapping(path = "/workspaces")
-public class WorkspaceCRUDController {
+public interface WorkspaceCustomRepository {
 
-	public String index(Model model) {
-		return "workspaces/index";
-	}
 }

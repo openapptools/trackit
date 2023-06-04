@@ -19,14 +19,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.web.routes.user;
+package org.opentracktools.trackit.web.routes.workspaces;
 
 import java.util.List;
 
 import org.opentracktools.trackit.domain.app.service.user.UserManagementService;
 import org.opentracktools.trackit.domain.app.service.user.UserServiceResponse;
+import org.opentracktools.trackit.domain.app.service.workspace.WorkspaceService;
+import org.opentracktools.trackit.domain.app.service.workspace.WorkspaceServiceResponse;
 import org.opentracktools.trackit.web.User;
-import org.opentracktools.trackit.web.payload.UserPayload;
+import org.opentracktools.trackit.web.Workspace;
+import org.opentracktools.trackit.web.payload.WorkspacePayload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,52 +40,72 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
 @Controller
-@RequestMapping(path = { "/users" })
-public class UserCRUDController {
+@RequestMapping(path = "/workspaces")
+@Slf4j
+public class WorkspaceController {
 
 	@Autowired
-	private UserManagementService userManagementService;
+	private WorkspaceService workspaceService;
 
-	@GetMapping(path = "/noops")
-	public String noops() {
-		return "noops";
-	}
+	@Autowired
+	private UserManagementService userService;
 
-	@GetMapping(path = "/new")
-	public String create(Model model) {
-		model.addAttribute("user", new UserPayload());
-		return "users/new";
-	}
-	
 	@SuppressWarnings("unchecked")
-	@GetMapping(path = {"/", ""})
+	@GetMapping(path = { "/", "" })
 	public String index(Model model) {
-		UserServiceResponse response = userManagementService.list();
+		WorkspaceServiceResponse response = workspaceService.list();
 		if (response.isSuccess()) {
-			model.addAttribute("users", (List<User>) response.getResult());
+			model.addAttribute("workspaces", (List<Workspace>) response.getResult());
 		}
-		return "users/index";
+		return "workspaces/index";
 	}
 
-	@PostMapping(path = "/new")
-	public String create(@Valid @ModelAttribute(name = "user") UserPayload user, BindingResult result, Model model) {
-		if (result.hasFieldErrors()) {
-			model.addAttribute("user", user);
-			return "users/new";
+	@SuppressWarnings("unchecked")
+	@GetMapping(path = { "/new" })
+	public String create(Model model) {
+		// Get list of active users
+		UserServiceResponse userServiceResponse = userService.list();
+		if (userServiceResponse.isSuccess()) {
+			model.addAttribute("users", (List<User>) userServiceResponse.getResult());
+		} else {
+
 		}
-		UserServiceResponse response = userManagementService.create(user);
+		model.addAttribute("workspace", new Workspace());
+		return "workspaces/new";
+	}
+
+	@SuppressWarnings("unchecked")
+	@PostMapping(path = { "/new" })
+	public String create(@Valid @ModelAttribute(name = "workspace") WorkspacePayload workspace, BindingResult result, Model model) {
+		logger.info("Workspace Payload = \n{}", workspace);
+		if (result.hasFieldErrors()) {
+			model.addAttribute("workspace", workspace);
+			UserServiceResponse userServiceResponse = userService.list();
+			if (userServiceResponse.isSuccess()) {
+				model.addAttribute("users", (List<User>) userServiceResponse.getResult());
+			}
+			return "workspaces/new";
+		}
+		WorkspaceServiceResponse response = workspaceService.create(workspace);
 		if (!response.isSuccess()) {
 			String errorMsg = response.getMessage();
 			// TODO find if we can update the result object and show it without a field.
 			model.addAttribute("appError", errorMsg);
-			return "users/new";
+			UserServiceResponse userServiceResponse = userService.list();
+			if (userServiceResponse.isSuccess()) {
+				model.addAttribute("users", (List<User>) userServiceResponse.getResult());
+			}
+			return "workspaces/new";
 		}
+		
 		return "redirect:";
 	}
+
 }

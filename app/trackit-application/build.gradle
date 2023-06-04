@@ -1,11 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '3.0.5'
+	id 'org.springframework.boot' version '3.1.0'
 }
 
 description = 'The main trackit application'
 
 dependencies {
     api(project(":web:trackit-web-user"))
+    api(project(":web:trackit-web-workspace"))
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
 }

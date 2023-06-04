@@ -12,6 +12,8 @@
 	<logger name="org.springframework" level="ERROR" />
 	<logger name="_org.springframework" level="ERROR" />
 	<logger name="org.hibernate" level="ERROR" />
+	<logger name="org.hibernate.SQL" level="DEBUG" />
+	<!-- <logger name="org.hibernate.type" level="TRACE" /> -->
 	<logger name="com.zaxxer" level="ERROR" />
 	<logger name="org.apache" level="ERROR" />
 	<logger name="org.thymeleaf" level="ERROR" />

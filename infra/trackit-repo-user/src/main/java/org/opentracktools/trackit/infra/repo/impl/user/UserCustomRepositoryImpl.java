@@ -3,7 +3,7 @@
  * helps you track your daily work progress with a flavor of agile.
  *
  * Copyright (C) 2023-present  Arpan Mukhopadhyay. All rights reserved.
- *
+ * 
  * DO NOT DELETE OR MODIFY THIS LICENSE INFORMATION OR THIS FILE HEADER.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,31 +19,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.domain.app.service.conversion;
+package org.opentracktools.trackit.infra.repo.impl.user;
 
-import java.util.List;
+import org.opentracktools.trackit.infra.repo.user.UserCustomRepository;
+import org.springframework.stereotype.Repository;
 
-import org.opentracktools.trackit.domain.model.UserEntity;
-import org.opentracktools.trackit.web.User;
-import org.opentracktools.trackit.web.payload.UserPayload;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-public interface UserPayloadConversionService {
+@Repository
+public class UserCustomRepositoryImpl implements UserCustomRepository {
 
-	/**
-	 *
-	 * @param userPayload
-	 * @return
-	 */
-	UserEntity fromPayload(UserPayload userPayload);
+	// For custom persistence method we will use criteria instead of jpql
 
-	/**
-	 * 
-	 * @param userEntities
-	 * @return
-	 */
-	List<User> fromEntities(List<UserEntity> userEntities);
+	@PersistenceContext
+	private EntityManager entityManager;
+
 }

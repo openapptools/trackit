@@ -1,0 +1,25 @@
+/*C12*/SET SCHEMA PUBLIC
+\u000a    alter table projects \u000a       drop constraint uq_name_on_projects
+\u000a    alter table projects \u000a       add constraint uq_name_on_projects unique (name)
+\u000a    alter table workspaces \u000a       drop constraint uq_name_on_projects
+\u000a    alter table workspaces \u000a       add constraint uq_name_on_projects unique (name)
+ALTER SEQUENCE PUBLIC.WORKSPACE_ID_GENERATOR RESTART WITH 301
+DISCONNECT
+/*C13*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C14*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C15*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C16*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C17*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C18*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C19*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C20*/SET SCHEMA PUBLIC
+DISCONNECT
+/*C21*/SET SCHEMA PUBLIC
+DISCONNECT

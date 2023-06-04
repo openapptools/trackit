@@ -126,7 +126,7 @@ public class UserEntity extends BaseEntity {
 	/**
 	 * 
 	 */
-	private UserEntity() {
+	UserEntity() {
 	}
 
 	/**

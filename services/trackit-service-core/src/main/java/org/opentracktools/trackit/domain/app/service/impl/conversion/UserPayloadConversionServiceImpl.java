@@ -51,7 +51,7 @@ public class UserPayloadConversionServiceImpl implements UserPayloadConversionSe
 	}
 
 	@Override
-	public List<User> fromUserEntities(List<UserEntity> userEntities) {
+	public List<User> fromEntities(List<UserEntity> userEntities) {
 		List<User> users = null;
 		if (null != userEntities && userEntities.size() > 0) {
 			users = userEntities.stream().map(t -> new User(t.getUsername(), t.getEmail()))

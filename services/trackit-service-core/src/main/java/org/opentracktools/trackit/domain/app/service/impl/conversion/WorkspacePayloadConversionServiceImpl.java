@@ -19,12 +19,24 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-package org.opentracktools.trackit.infra.repo.user;
+package org.opentracktools.trackit.domain.app.service.impl.conversion;
+
+import org.opentracktools.trackit.domain.app.service.conversion.WorkspacePayloadConversionService;
+import org.opentracktools.trackit.domain.model.WorkspaceEntity;
+import org.opentracktools.trackit.web.payload.WorkspacePayload;
+import org.springframework.stereotype.Service;
 
 /**
  * @author Arpan Mukhopadhyay
  *
  */
-public interface UserCRUDRepository {
+@Service
+public class WorkspacePayloadConversionServiceImpl implements WorkspacePayloadConversionService {
 
+	@Override
+	public WorkspaceEntity fromPayload(WorkspacePayload workspacePayload) {
+		WorkspaceEntity workspaceEntity = WorkspaceEntity.builder().name(workspacePayload.getName())
+				.description(workspacePayload.getDescription()).build();
+		return workspaceEntity;
+	}
 }
