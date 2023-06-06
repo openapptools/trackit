@@ -21,8 +21,12 @@
  */
 package org.opentracktools.trackit.domain.app.service.impl.conversion;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.opentracktools.trackit.domain.app.service.conversion.WorkspacePayloadConversionService;
 import org.opentracktools.trackit.domain.model.WorkspaceEntity;
+import org.opentracktools.trackit.web.Workspace;
 import org.opentracktools.trackit.web.payload.WorkspacePayload;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +40,17 @@ public class WorkspacePayloadConversionServiceImpl implements WorkspacePayloadCo
 	@Override
 	public WorkspaceEntity fromPayload(WorkspacePayload workspacePayload) {
 		WorkspaceEntity workspaceEntity = WorkspaceEntity.builder().name(workspacePayload.getName())
-				.description(workspacePayload.getDescription()).build();
+				.description(workspacePayload.getDescription()).type(workspacePayload.getType().toUpperCase()).build();
 		return workspaceEntity;
+	}
+
+	@Override
+	public List<Workspace> fromEntities(List<WorkspaceEntity> workspaceEntities) {
+		List<Workspace> workspaces = null;
+		if (null != workspaceEntities && workspaceEntities.size() > 0) {
+			workspaces = workspaceEntities.stream().map(t -> new Workspace(t.getName(), t.getDescription(),
+					t.getOwner().getUsername(), t.getType().name().toLowerCase())).collect(Collectors.toList());
+		}
+		return workspaces;
 	}
 }

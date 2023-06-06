@@ -49,11 +49,6 @@ public class UserController {
 	@Autowired
 	private UserManagementService userManagementService;
 
-	@GetMapping(path = "/noops")
-	public String noops() {
-		return "noops";
-	}
-
 	@GetMapping(path = "/new")
 	public String create(Model model) {
 		model.addAttribute("user", new UserPayload());

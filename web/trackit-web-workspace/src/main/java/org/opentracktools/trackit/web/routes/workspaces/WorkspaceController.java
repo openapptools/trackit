@@ -83,7 +83,8 @@ public class WorkspaceController {
 
 	@SuppressWarnings("unchecked")
 	@PostMapping(path = { "/new" })
-	public String create(@Valid @ModelAttribute(name = "workspace") WorkspacePayload workspace, BindingResult result, Model model) {
+	public String create(@Valid @ModelAttribute(name = "workspace") WorkspacePayload workspace, BindingResult result,
+			Model model) {
 		logger.info("Workspace Payload = \n{}", workspace);
 		if (result.hasFieldErrors()) {
 			model.addAttribute("workspace", workspace);
@@ -104,7 +105,6 @@ public class WorkspaceController {
 			}
 			return "workspaces/new";
 		}
-		
 		return "redirect:";
 	}
 

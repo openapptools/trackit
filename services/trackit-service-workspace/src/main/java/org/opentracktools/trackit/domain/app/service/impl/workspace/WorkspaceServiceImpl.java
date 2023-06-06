@@ -57,13 +57,17 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 	@Override
 	public WorkspaceServiceResponse list() {
 		List<WorkspaceEntity> workspaces = workspaceRepository.findAllActiveWorkspaces();
+
 		WorkspaceServiceResponse response = WorkspaceServiceResponse.error(null);
 		response.setCode(404);
 		logger.info("{}", workspaces);
 		if (null != workspaces && workspaces.size() > 0) {
-			response.setResult(workspaces);
+			response.setResult(workspaceConversionService.fromEntities(workspaces));
 			response.setSuccess(true);
 			response.setCode(200);
+		} else {
+			response = WorkspaceServiceResponse.error(null);
+			response.setCode(404);
 		}
 		return response;
 	}
@@ -73,20 +77,21 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 	public WorkspaceServiceResponse create(WorkspacePayload payload) {
 		WorkspaceServiceResponse response = WorkspaceServiceResponse.error(null);
 		response.setCode(500);
-		
+
 		WorkspaceEntity existingEntity = workspaceRepository.findOneByName(payload.getName());
 		if (null != existingEntity) {
 			response = WorkspaceServiceResponse.error(payload);
 			response.setCode(409);
 			response.setMessage("Workspace with same name already exist.");
+			return response;
 		}
-		
+
 		String owner = payload.getOwner();
 		if (null != owner) {
 			UserEntity ownerEntity = userRepository.findByUsername(owner);
 			if (null != ownerEntity) {
 				WorkspaceEntity workspaceEntity = workspaceConversionService.fromPayload(payload);
-				workspaceEntity.setOwnerId(ownerEntity);
+				workspaceEntity.setOwner(ownerEntity);
 				try {
 					workspaceRepository.save(workspaceEntity);
 					response.setSuccess(true);

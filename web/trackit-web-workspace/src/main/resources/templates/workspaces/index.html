@@ -8,12 +8,20 @@
 <div th:class="@{container mt-3}">
 <h3>Workspace Listing Page</h3>
 <div th:if="${not #lists.isEmpty(workspaces)}">
-	<ul>
-		<li th:each="workspace: ${workspaces}">
-			<span th:text="${workspace.name}"></span>
+	<ul th:class="@{list-group}">
+		<li th:class="@{list-group-item}" th:each="workspace: ${workspaces}">
+			<div th:class="@{d-flex flex-row}">
+				<div th:class="@{d-flex flex-column}">
+					<a th:class="@{fw-bold link-primary link-offset-1 link-underline link-underline-opacity-0 link-underline-opacity-100-hover}" th:href="@{/}" th:text="${workspace.name}"></a>
+				</div>
+			</div>
+			
+			<span th:text="${workspace.owner}"></span>
+			<div th:class="@{d-block}" th:text="${workspace.description}"></div>
 		</li>
 	</ul>
 </div>
+<a th:href="@{/workspaces/new}" th:class="@{btn btn-sm btn-primary mt-2}">Create</a>
 </div>
 </div>
 </body>

@@ -21,7 +21,10 @@
  */
 package org.opentracktools.trackit.domain.app.service.conversion;
 
+import java.util.List;
+
 import org.opentracktools.trackit.domain.model.WorkspaceEntity;
+import org.opentracktools.trackit.web.Workspace;
 import org.opentracktools.trackit.web.payload.WorkspacePayload;
 
 /**
@@ -35,5 +38,12 @@ public interface WorkspacePayloadConversionService {
 	 * @return
 	 */
 	WorkspaceEntity fromPayload(WorkspacePayload workspacePayload);
+
+	/**
+	 * 
+	 * @param workspaceEntities
+	 * @return
+	 */
+	List<Workspace> fromEntities(List<WorkspaceEntity> workspaceEntities);
 
 }

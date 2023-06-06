@@ -46,6 +46,6 @@ public interface WorkspaceRepository extends JpaRepository<WorkspaceEntity, Long
 	 * @param name
 	 * @return
 	 */
-	@Query("from WorkspaceEntity w where w.deleted = fasle and w.name = :name ")
+	@Query("from WorkspaceEntity w where w.deleted = false and w.name = :name ")
 	WorkspaceEntity findOneByName(@Param("name") String name);
 }

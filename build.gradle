@@ -70,5 +70,3 @@ configure(applicationProjects) { project ->
     apply plugin: 'application'
     apply plugin: 'io.spring.dependency-management'
 }
-
-tasks.register("cleanStaleBuild", org.trackit.build.tasks.StaleBuildClean)

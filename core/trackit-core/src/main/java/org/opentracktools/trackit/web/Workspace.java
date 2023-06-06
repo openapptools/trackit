@@ -50,4 +50,7 @@ public class Workspace {
 	@NotNull(message = "Workspace must have an owner.")
 	@NotEmpty(message = "Workspace must have an owner.")
 	private String owner;
+	
+	@NotNull(message = "Workspace must be either private or public")
+	private String type;
 }

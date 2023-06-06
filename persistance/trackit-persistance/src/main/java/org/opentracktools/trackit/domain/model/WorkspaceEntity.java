@@ -45,7 +45,8 @@ import lombok.Setter;
  *
  */
 @Entity
-@Table(name = "workspaces", uniqueConstraints = {@UniqueConstraint(columnNames = "name", name = "uq_name_on_projects")})
+@Table(name = "workspaces", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "name", name = "uq_name_on_projects") })
 @Getter
 @Setter
 public class WorkspaceEntity extends BaseEntity {
@@ -68,7 +69,7 @@ public class WorkspaceEntity extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(referencedColumnName = "id", name = "owner_id")
-	private UserEntity ownerId;
+	private UserEntity owner;
 
 	@Column(name = "type")
 	private AccessType type = AccessType.PRIVATE;
@@ -80,16 +81,16 @@ public class WorkspaceEntity extends BaseEntity {
 	 * @param name
 	 * @param description
 	 * @param notes
-	 * @param ownerId
+	 * @param owner
 	 * @param type
 	 * @param properties
 	 */
-	private WorkspaceEntity(String name, String description, String notes, UserEntity ownerId, AccessType type,
+	private WorkspaceEntity(String name, String description, String notes, UserEntity owner, AccessType type,
 			List<WorkspacePropEntity> properties) {
 		this.name = name;
 		this.description = description;
 		this.notes = notes;
-		this.ownerId = ownerId;
+		this.owner = owner;
 		this.type = type;
 		this.properties = properties;
 		this.setCreatedAt(new Date());
@@ -100,7 +101,7 @@ public class WorkspaceEntity extends BaseEntity {
 	 */
 	WorkspaceEntity() {
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -166,6 +167,16 @@ public class WorkspaceEntity extends BaseEntity {
 		 */
 		public WorkspaceEntityBuilder owner(UserEntity owner) {
 			this.owner = owner;
+			return this;
+		}
+
+		/**
+		 * 
+		 * @param type
+		 * @return
+		 */
+		public WorkspaceEntityBuilder type(String type) {
+			this.type = AccessType.valueOf(type);
 			return this;
 		}
 

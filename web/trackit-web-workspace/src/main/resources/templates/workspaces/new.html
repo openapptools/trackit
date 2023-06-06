@@ -21,6 +21,14 @@
 		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
 	</div>
 	<div th:class="@{mb-3}">
+		<label th:class="@{mb-1}" th:for="@{type}">Owner</label>
+		<select th:id="@{type}" class="form-select form-select-sm" th:field="*{type}">
+  			<option th:text="Public" th:value="@{public}"></option>
+  			<option th:text="Private" th:value="@{private}"></option>
+		</select>
+		<div th:class="@{d-block text-danger mt-1}" th:style="@{font-size: 14px}" th:if="${#fields.hasErrors('owner')}" th:errors="*{owner}"></div>
+	</div>
+	<div th:class="@{mb-3}">
 		<label th:class="@{mb-1}" th:for="@{owner}">Owner</label>
 		<select th:id="@{owner}" class="form-select form-select-sm" th:field="*{owner}">
   			<option selected th:value="@{''}">-Select owner-</option>
@@ -33,6 +41,7 @@
 		<button th:class="@{btn btn-sm btn-success}" type="submit">Save</button>
 	</div>
 	</form>
+	<a th:class="link-offset-2" th:href="@{/workspaces}">Back to list</a>
 </div>
 </div>
 </body>
